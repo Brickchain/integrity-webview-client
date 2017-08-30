@@ -1,6 +1,6 @@
 {
   "name": "integrity-webview-client",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Client library to provide communication between webviews and Integrity mobile app",
   "main": "./bundles/integrity-webview-client.umd.js",
   "module": "./modules/integrity-webview-client.es5.js",
