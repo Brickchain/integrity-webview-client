@@ -1,34 +1,45 @@
 import { Injectable } from '@angular/core';
 
 class WebviewClientService {
-    constructor() {
-        this.InitKey = 'com.brickchain.integrity.init';
-        this.PollKey = 'com.brickchain.integrity.poll';
-        this.CancelKey = 'com.brickchain.integrity.cancel';
-    }
     /**
      * @param {?} action
-     * @return {?}
      */
-    init(action) {
-        ((window))[this.InitKey] = (params) => {
+    constructor(action) {
+        this.InitKey = 'com.brickchain.integrity.init';
+        this.PollKey = 'com.brickchain.integrity.poll';
+        this.HandleKey = 'com.brickchain.integrity.handle';
+        this.HandleResultKey = 'com.brickchain.integrity.handle.result';
+        this.HandleErrorKey = 'com.brickchain.integrity.handle.error';
+        this.CancelKey = 'com.brickchain.integrity.cancel';
+        window[this.InitKey] = (params) => {
             action(params);
         };
-        this.poll();
+        window[this.PollKey] = () => this.result;
+        window[this.HandleKey] = () => this.handleDirective;
     }
     /**
+     * @param {?} result
      * @return {?}
      */
-    poll() {
-        ((window))[this.PollKey] = () => {
-            console.log('hello');
-        };
+    close(result) {
+        this.result = result;
     }
     /**
      * @return {?}
      */
     cancel() {
-        return this.CancelKey;
+        this.result = this.CancelKey;
+    }
+    /**
+     * @param {?} directive
+     * @return {?}
+     */
+    handle(directive) {
+        this.handleDirective = directive;
+        return new Promise((resolve, reject) => {
+            ((window))[this.HandleResultKey] = (json) => resolve(json ? JSON.parse(json) : json);
+            ((window))[this.HandleErrorKey] = (json) => reject(json ? JSON.parse(json) : json);
+        });
     }
 }
 WebviewClientService.decorators = [
@@ -37,7 +48,9 @@ WebviewClientService.decorators = [
 /**
  * @nocollapse
  */
-WebviewClientService.ctorParameters = () => [];
+WebviewClientService.ctorParameters = () => [
+    null,
+];
 
 class ReceiveMessageService {
     constructor() {

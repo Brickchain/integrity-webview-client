@@ -5,34 +5,47 @@
 }(this, (function (exports,_angular_core) { 'use strict';
 
 var WebviewClientService = (function () {
-    function WebviewClientService() {
-        this.InitKey = 'com.brickchain.integrity.init';
-        this.PollKey = 'com.brickchain.integrity.poll';
-        this.CancelKey = 'com.brickchain.integrity.cancel';
-    }
     /**
      * @param {?} action
-     * @return {?}
      */
-    WebviewClientService.prototype.init = function (action) {
-        ((window))[this.InitKey] = function (params) {
+    function WebviewClientService(action) {
+        var _this = this;
+        this.InitKey = 'com.brickchain.integrity.init';
+        this.PollKey = 'com.brickchain.integrity.poll';
+        this.HandleKey = 'com.brickchain.integrity.handle';
+        this.HandleResultKey = 'com.brickchain.integrity.handle.result';
+        this.HandleErrorKey = 'com.brickchain.integrity.handle.error';
+        this.CancelKey = 'com.brickchain.integrity.cancel';
+        window[this.InitKey] = function (params) {
             action(params);
         };
-        this.poll();
-    };
+        window[this.PollKey] = function () { return _this.result; };
+        window[this.HandleKey] = function () { return _this.handleDirective; };
+    }
     /**
+     * @param {?} result
      * @return {?}
      */
-    WebviewClientService.prototype.poll = function () {
-        ((window))[this.PollKey] = function () {
-            console.log('hello');
-        };
+    WebviewClientService.prototype.close = function (result) {
+        this.result = result;
     };
     /**
      * @return {?}
      */
     WebviewClientService.prototype.cancel = function () {
-        return this.CancelKey;
+        this.result = this.CancelKey;
+    };
+    /**
+     * @param {?} directive
+     * @return {?}
+     */
+    WebviewClientService.prototype.handle = function (directive) {
+        var _this = this;
+        this.handleDirective = directive;
+        return new Promise(function (resolve, reject) {
+            ((window))[_this.HandleResultKey] = function (json) { return resolve(json ? JSON.parse(json) : json); };
+            ((window))[_this.HandleErrorKey] = function (json) { return reject(json ? JSON.parse(json) : json); };
+        });
     };
     return WebviewClientService;
 }());
@@ -42,7 +55,9 @@ WebviewClientService.decorators = [
 /**
  * @nocollapse
  */
-WebviewClientService.ctorParameters = function () { return []; };
+WebviewClientService.ctorParameters = function () { return [
+    null,
+]; };
 var ReceiveMessageService = (function () {
     function ReceiveMessageService() {
         this.InitKey = 'com.brickchain.integrity.init';
