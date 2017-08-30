@@ -1,21 +1,31 @@
 import { Injectable } from '@angular/core';
 
 class WebviewClientService {
-    /**
-     * @param {?} action
-     */
-    constructor(action) {
+    constructor() {
         this.InitKey = 'com.brickchain.integrity.init';
         this.PollKey = 'com.brickchain.integrity.poll';
         this.HandleKey = 'com.brickchain.integrity.handle';
         this.HandleResultKey = 'com.brickchain.integrity.handle.result';
         this.HandleErrorKey = 'com.brickchain.integrity.handle.error';
         this.CancelKey = 'com.brickchain.integrity.cancel';
-        window[this.InitKey] = (params) => {
-            action(params);
-        };
         window[this.PollKey] = () => this.result;
         window[this.HandleKey] = () => this.handleDirective;
+    }
+    /**
+     * @return {?}
+     */
+    init() {
+        return new Promise((resolve, reject) => {
+            ((window))[this.InitKey] = (data) => {
+                try {
+                    resolve(JSON.parse(data));
+                }
+                catch (error) {
+                    reject(error);
+                }
+                return true;
+            };
+        });
     }
     /**
      * @param {?} result
@@ -48,10 +58,9 @@ WebviewClientService.decorators = [
 /**
  * @nocollapse
  */
-WebviewClientService.ctorParameters = () => [
-    null,
-];
+WebviewClientService.ctorParameters = () => [];
 
+// tslint:disable:max-line-length
 class ReceiveMessageService {
     constructor() {
         this.InitKey = 'com.brickchain.integrity.init';
@@ -66,7 +75,7 @@ class ReceiveMessageService {
      */
     receiveMessage(event) {
         if (event.data.op) {
-            let /** @type {?} */ script = event.data;
+            const /** @type {?} */ script = event.data;
             switch (script.op) {
                 case 'init':
                     script.result = ((window))[this.InitKey] ? ((window))[this.InitKey](script.param) : null;
@@ -107,6 +116,7 @@ ReceiveMessageService.decorators = [
 ReceiveMessageService.ctorParameters = () => [];
 
 // Public classes.
+//export { WebviewClientObject } from './services/webview-client-object';
 
 /**
  * Angular library starter.

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 var WebviewClientService = (function () {
-    /**
-     * @param {?} action
-     */
-    function WebviewClientService(action) {
+    function WebviewClientService() {
         var _this = this;
         this.InitKey = 'com.brickchain.integrity.init';
         this.PollKey = 'com.brickchain.integrity.poll';
@@ -11,12 +8,26 @@ var WebviewClientService = (function () {
         this.HandleResultKey = 'com.brickchain.integrity.handle.result';
         this.HandleErrorKey = 'com.brickchain.integrity.handle.error';
         this.CancelKey = 'com.brickchain.integrity.cancel';
-        window[this.InitKey] = function (params) {
-            action(params);
-        };
         window[this.PollKey] = function () { return _this.result; };
         window[this.HandleKey] = function () { return _this.handleDirective; };
     }
+    /**
+     * @return {?}
+     */
+    WebviewClientService.prototype.init = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            ((window))[_this.InitKey] = function (data) {
+                try {
+                    resolve(JSON.parse(data));
+                }
+                catch (error) {
+                    reject(error);
+                }
+                return true;
+            };
+        });
+    };
     /**
      * @param {?} result
      * @return {?}
@@ -50,9 +61,8 @@ WebviewClientService.decorators = [
 /**
  * @nocollapse
  */
-WebviewClientService.ctorParameters = function () { return [
-    null,
-]; };
+WebviewClientService.ctorParameters = function () { return []; };
+// tslint:disable:max-line-length
 var ReceiveMessageService = (function () {
     function ReceiveMessageService() {
         this.InitKey = 'com.brickchain.integrity.init';
@@ -108,6 +118,7 @@ ReceiveMessageService.decorators = [
  */
 ReceiveMessageService.ctorParameters = function () { return []; };
 // Public classes.
+//export { WebviewClientObject } from './services/webview-client-object';
 /**
  * Angular library starter.
  * Build an Angular library compatible with AoT compilation & Tree shaking.
