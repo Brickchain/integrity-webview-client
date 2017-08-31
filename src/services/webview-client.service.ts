@@ -44,8 +44,14 @@ export class WebviewClientService {
   public handle(directive: any): Promise<any> {
     this.handleDirective = directive;
     return new Promise((resolve, reject) => {
-      (window as any)[this.HandleResultKey] = (json: any) => resolve(json ? JSON.parse(json) : json);
-      (window as any)[this.HandleErrorKey] = (json: any) => reject(json ? JSON.parse(json) : json);
+      (window as any)[this.HandleResultKey] = (json: any) => {
+        delete this.handleDirective;
+        resolve(json ? JSON.parse(json) : json);
+      };
+      (window as any)[this.HandleErrorKey] = (json: any) => {
+        delete this.handleDirective;
+        reject(json ? JSON.parse(json) : json);
+      };
     });
   }
 
