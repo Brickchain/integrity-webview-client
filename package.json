@@ -18,8 +18,11 @@
     "type": "git",
     "url": "git+https://github.com/PlusIntegrity/integrity-webview-client.git"
   },
-  "author": "Emil Sonesson",
-  "license": "BSD 2-clause Simplified License",
+  "author": "Emil Sonesson <emil@brickchain.com>",
+  "contributors": [
+    "Erik Hedenström <erik@brickchain.com>"
+  ],
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/PlusIntegrity/integrity-webview-client/issues"
   },

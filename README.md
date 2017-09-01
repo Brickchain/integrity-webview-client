@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/PlusIntegrity/integrity-webview-client.svg?branch=master)](https://travis-ci.org/PlusIntegrity/integrity-webview-client)
+
 # integrity-webview-client
 Client library to provide communication between webviews and Integrity mobile app
 
