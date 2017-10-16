@@ -26,6 +26,7 @@ export class WebviewClientService {
         try {
           resolve(JSON.parse(data));
         } catch (error) {
+          console.error("Failed parsing data:", data);
           reject(error);
         }
         return true;
@@ -46,11 +47,19 @@ export class WebviewClientService {
     return new Promise((resolve, reject) => {
       (window as any)[this.HandleResultKey] = (json: any) => {
         delete this.handleDirective;
-        resolve(json ? JSON.parse(json) : json);
+        try {
+          resolve(json ? JSON.parse(json) : json);
+        } catch(err) {
+          reject(err);
+        }
       };
       (window as any)[this.HandleErrorKey] = (json: any) => {
         delete this.handleDirective;
-        reject(json ? JSON.parse(json) : json);
+        try{
+          reject(json ? JSON.parse(json) : json);
+        } catch(err) {
+          reject(err);
+        }
       };
     });
   }
