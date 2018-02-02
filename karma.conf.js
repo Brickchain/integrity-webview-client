@@ -1,4 +1,5 @@
 // Karma configuration for Unit testing
+const isDocker = require('is-docker');
 
 module.exports = function (config) {
 
@@ -57,6 +58,12 @@ module.exports = function (config) {
             noInfo: true
         },
 
+        customLaunchers: {
+          ChromeCustom: {
+            base: 'ChromeHeadless',
+            flags: isDocker() ? ['--no-sandbox'] : []
+          }
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
@@ -83,7 +90,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        browsers: ['ChromeCustom'],
 
 
         // Continuous Integration mode

@@ -26,7 +26,6 @@ export class WebviewClientService {
         try {
           resolve(JSON.parse(data));
         } catch (error) {
-          console.error("Failed parsing data:", data);
           reject(error);
         }
         return true;
@@ -49,15 +48,15 @@ export class WebviewClientService {
         delete this.handleDirective;
         try {
           resolve(json ? JSON.parse(json) : json);
-        } catch(err) {
+        } catch (err) {
           reject(err);
         }
       };
       (window as any)[this.HandleErrorKey] = (json: any) => {
         delete this.handleDirective;
-        try{
+        try {
           reject(json ? JSON.parse(json) : json);
-        } catch(err) {
+        } catch (err) {
           reject(err);
         }
       };
