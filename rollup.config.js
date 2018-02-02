@@ -58,6 +58,6 @@ export default {
         globals: globals,
         sourcemap: true,
         exports: 'named',
-        amd: { id: 'integrity-webiew-client' }
+        amd: { id: 'integrity-webview-client' }
     }
 }
