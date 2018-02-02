@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { WebviewClientService } from './../../index';
+import { WebviewClientService } from './../../integrity-webview-client';
 
 describe('WebviewClientService', () => {
 

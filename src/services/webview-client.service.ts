@@ -5,12 +5,12 @@ import { Injectable } from '@angular/core';
 export class WebviewClientService {
 
   private params: any;
-  private InitKey: string = 'com.brickchain.integrity.init';
-  private PollKey: string = 'com.brickchain.integrity.poll';
-  private HandleKey: string = 'com.brickchain.integrity.handle';
-  private HandleResultKey: string = 'com.brickchain.integrity.handle.result';
-  private HandleErrorKey: string = 'com.brickchain.integrity.handle.error';
-  private CancelKey: string = 'com.brickchain.integrity.cancel';
+  private InitKey = 'com.brickchain.integrity.init';
+  private PollKey = 'com.brickchain.integrity.poll';
+  private HandleKey = 'com.brickchain.integrity.handle';
+  private HandleResultKey = 'com.brickchain.integrity.handle.result';
+  private HandleErrorKey = 'com.brickchain.integrity.handle.error';
+  private CancelKey = 'com.brickchain.integrity.cancel';
   private result: any;
   private handleDirective: any;
 

@@ -1,0 +1,6 @@
+/**
+ * @license Integrity Webview Client
+ * Copyright Brickchain Ltd.
+ * BSD-2 license
+ * https://github.com/Brickchain/integrity-webview-client
+ */
