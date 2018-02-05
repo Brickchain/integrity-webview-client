@@ -33,6 +33,6 @@
       "annotateForClosureCompiler": true,
       "strictMetadataEmit": true,
       "flatModuleOutFile": "integrity-webview-client.js",
-      "flatModuleId": "integrity-webview-client"
+      "flatModuleId": "@brickchain/integrity-webview-client"
   }
 }
