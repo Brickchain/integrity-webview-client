@@ -1,6 +1,6 @@
 {
   "name": "@brickchain/integrity-webview-client",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Client library to provide communication between webviews and Integrity mobile app",
   "main": "./bundles/integrity-webview-client.umd.js",
   "module": "./modules/integrity-webview-client.es5.js",
