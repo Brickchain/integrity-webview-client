@@ -2,7 +2,7 @@
 
 # Integrity Webview Client
 
-Client library to provide communication between webviews and Integrity mobile app. Build with the help of [angular-library-starter](https://github.com/robisim74/angular-library-starter).
+Client library to provide communication between webviews and Integrity mobile app. Built with the help of [angular-library-starter](https://github.com/robisim74/angular-library-starter).
 
 # Useful Commands
 
